@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DIKTIA</title>
+	<style type="text/css">
+		html, body{
+			margin:0;
+		}
+	</style>
+</head>
+<body>
+<div id="game"></div>
+<script src="phaser.min.js"></script>
+<script type="text/javascript">
+	var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game');
+	var mainState = { 
+		preload:function(){
+			game.load.image('diktia', 'logo.png');
+			game.load.image('cosica', 'cosica2.png');
+
+			//	Load our physics data exported from PhysicsEditor
+			game.load.physics('physicsData', 'logo.json');
+
+			this.points = {
+			    'x': [280, 318, 320, 275, 335, 400, 430, 540, 605, 575],
+			    'y': [270, 383, 437, 555, 630, 600, 530, 570, 515, 415]
+			};
+
+
+		},
+	 	create: function() {
+	 		game.stage.backgroundColor = '#ffffff'
+			//	Enable p2 physics
+			game.physics.startSystem(Phaser.Physics.P2JS);
+
+		    //  Make things a bit more bouncey
+		    //game.physics.p2.defaultRestitution = 0.8;
+
+			diktia = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'diktia');
+			cosica = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'cosica');
+			cosica.anchor.setTo(0.5, 0.5);
+			diktia.anchor.setTo(0.5, 0.5);
+
+			//	Enable the physics bodies on all the sprites and turn on the visual debugger
+			game.physics.p2.enable([ diktia, cosica ], true);
+			diktia.body.static =true;
+
+			diktia.body.clearShapes();
+			diktia.body.loadPolygon('physicsData', 'logo');
+
+
+			this.light = this.game.add.sprite(this.game.width/2.5, this.game.height/2.5, 'light');
+
+		    // Set the pivot point of the light to the center of the texture
+		    this.light.anchor.setTo(0.5, 0.5);
+
+		    // Create a bitmap texture for drawing light cones
+		    this.bitmap = this.game.add.bitmapData(this.game.width, this.game.height);
+		    this.bitmap.context.fillStyle = 'rgb(255, 255, 255)';
+		    this.bitmap.context.strokeStyle = 'rgb(255, 255, 255)';
+		    var lightBitmap = this.game.add.image(0, 0, this.bitmap);
+
+		    lightBitmap.blendMode = Phaser.blendModes.MULTIPLY;
+
+		    // Create a bitmap for drawing rays
+		    this.rayBitmap = this.game.add.bitmapData(this.game.width, this.game.height);
+		    this.rayBitmapImage = this.game.add.image(0, 0, this.rayBitmap);
+		    this.rayBitmapImage.visible = false;
+
+		    console.log(diktia.body.debugBody.body.shapes);
+		    window.mishapes = diktia.body.debugBody.body.shapes;
+
+		    this.points = [];
+		    var i = 0;
+		    var j = 0;
+		    diktia.body.data.shapes.forEach(shape => {
+		    	console.log(++i);
+		        shape.vertices.forEach(vert => {
+
+
+		        	console.log(++j,vert)
+		          let out = []
+		          diktia.body.toWorldFrame(out, vert)
+		          this.points.push(out[0] * -20, out[1] * -20)
+		        })
+		      })
+		    console.log(diktia.body.data.shapes[0])
+
+		},	
+		update: function() {
+			//Frenado y quitando rotación
+			cosica.body.damping = 0.9;
+		    cosica.body.setZeroRotation();
+
+		    //Acelerar
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+		    	//giro
+		    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+					cosica.body.rotateLeft(100);
+				}   //cosica movement
+			    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			    	cosica.body.rotateRight(100);
+			    }
+		    	cosica.body.thrust(400);
+		    	//var angle = cosica.body.rotation + (Math.PI / 2);
+			    //cosica.body.velocity.x = 100 * Math.cos(angle);
+			    //cosica.body.velocity.y = 100 * Math.sin(angle);
+		    }
+		  	//giro sin aceleración
+		    else if(Math.abs(cosica.body.velocity.x) > 6 || Math.abs(cosica.body.velocity.y) > 6){
+		    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+					cosica.body.rotateLeft(10);
+				} 
+			    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			    	cosica.body.rotateRight(10);
+			    }
+		    }
+		    //Freno
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.C)){
+		    	//cosica.body.reverse(200);
+		    	if(cosica.body.velocity.x > 6){
+		    		cosica.body.velocity.x = cosica.body.velocity.x - 5;
+		    	}
+		    	else if(cosica.body.velocity.x < -6){
+		    		cosica.body.velocity.x = cosica.body.velocity.x + 5;
+
+		    	}
+		    	if(cosica.body.velocity.y > 6){
+		    		cosica.body.velocity.y = cosica.body.velocity.y - 5;
+		    	}
+		    	else if(cosica.body.velocity.y < -6){
+		    		cosica.body.velocity.y = cosica.body.velocity.y + 5;
+
+		    	}
+		    	
+		    }
+
+			
+			this.light.x = this.game.input.activePointer.x;
+    		this.light.y = this.game.input.activePointer.y;
+
+    		// Next, fill the entire light bitmap with a dark shadow color.
+		    this.bitmap.context.fillStyle = 'rgb(100, 100, 100)';
+		    this.bitmap.context.fillRect(0, 0, this.game.width, this.game.height);
+
+		    // An array of the stage corners that we'll use later
+		    var stageCorners = [
+		        new Phaser.Point(0, 0),
+		        new Phaser.Point(this.game.width, 0),
+		        new Phaser.Point(this.game.width, this.game.height),
+		        new Phaser.Point(0, this.game.height)
+		    ];
+
+					      
+			    
+		}
+
+
+	};
+	game.state.add('main', mainState);  
+	game.state.start('main');
+
+</script>
+</body>
+</html>

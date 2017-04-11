@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="utf-8">
+    <title>DIKTIA | Kaleidoscopio</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../favicons/manifest.json">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="../favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    
+    <meta name="description" content="DIKTIA - Hacemos cosas chulas para la web...">
+    <meta name="keywords" content="DIKTIA, web, diseño, juegos">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+
+    <meta property="og:url" content="http://www.diktia.com"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Cino_power">
+    <meta name="twitter:creator" content="@Cino_power">
+    <meta property="og:title" content="DIKTIA"/>
+    <meta name="twitter:title" content="DIKTIA">
+    <meta property="og:description" content="Hacemos cosas chulas para la web..."/>
+    <meta name="twitter:description" content="Hacemos cosas chulas para la web...">
+    <meta property="og:image" content="http://www.diktia.com/logo_share.png"/>
+    <meta name="twitter:image" content="http://www.diktia.com/logo_share.png"/>
+
+    <style type="text/css">
+        html, body{
+            margin: 0;
+        }
+        #kali{
+            background-color: #fff;
+            background-size: auto 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow:hidden;
+            width: 100vw;
+            height: 100vh;
+        }
+ 
+        .kal_cont {
+            width: 300vw;
+            height: 300vh;
+            left: -100%;
+            top: -100%;
+            position: relative;
+            margin: auto;
+        }
+        .kal_cont .ks {
+            -webkit-transform-origin: 100% 0.1%;
+            -moz-transform-origin: 100% 0.1%;
+            -o-transform-origin: 100% 0.1%;
+            transform-origin: 100% 0.1%;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .kal_cont .ksc {
+            height: 100%;
+            width: 100%;
+            -webkit-transform: rotate(20deg);
+            -moz-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+            position: relative;
+            -webkit-transform-origin: left top;
+            -moz-transform-origin: left top;
+            -o-transform-origin: left top;
+            transform-origin: left top;
+            left: 100%;
+            top: 0;
+            background-image: url('../favicons/logo.png');
+	        background-size: 35vw;
+            -webkit-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -moz-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -ms-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -o-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            transition: all 2.5s cubic-bezier(.19,1,.22,1);
+        }
+
+    
+        .kal_cont .s1 {
+            -webkit-transform: rotate(-20deg);
+            -moz-transform: rotate(-20deg);
+            -o-transform: rotate(-20deg);
+            transform: rotate(-20deg);
+        }
+        .kal_cont .s2 {
+            -webkit-transform: rotate(20deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(20deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(20deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(20deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s3 {
+            -webkit-transform: rotate(20deg);
+            -moz-transform: rotate(20deg);
+            -o-transform: rotate(20deg);
+            transform: rotate(20deg);
+        }
+        .kal_cont .s4 {
+            -webkit-transform: rotate(60deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(60deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(60deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(60deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s5 {
+            -webkit-transform: rotate(60deg);
+            -moz-transform: rotate(60deg);
+            -o-transform: rotate(60deg);
+            transform: rotate(60deg);
+        }
+        .kal_cont .s6 {
+            -webkit-transform: rotate(100deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(100deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(100deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(100deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s7 {
+            -webkit-transform: rotate(100deg);
+            -moz-transform: rotate(100deg);
+            -o-transform: rotate(100deg);
+            transform: rotate(100deg);
+        }
+        .kal_cont .s8 {
+            -webkit-transform: rotate(140deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(140deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(140deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(140deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s9 {
+            -webkit-transform: rotate(140deg);
+            -moz-transform: rotate(140deg);
+            -o-transform: rotate(140deg);
+            transform: rotate(140deg);
+        }
+        .kal_cont .s10 {
+            -webkit-transform: rotate(180deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(180deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(180deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(180deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s11 {
+            -webkit-transform: rotate(180deg);
+            -moz-transform: rotate(180deg);
+            -o-transform: rotate(180deg);
+            transform: rotate(180deg);
+        }
+        .kal_cont .s12 {
+            -webkit-transform: rotate(220deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(220deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(220deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(220deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s13 {
+            -webkit-transform: rotate(220deg);
+            -moz-transform: rotate(220deg);
+            -o-transform: rotate(220deg);
+            transform: rotate(220deg);
+        }
+        .kal_cont .s14 {
+            -webkit-transform: rotate(260deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(260deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(260deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(260deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s15 {
+            -webkit-transform: rotate(260deg);
+            -moz-transform: rotate(260deg);
+            -o-transform: rotate(260deg);
+            transform: rotate(260deg);
+        }
+        .kal_cont .s16 {
+            -webkit-transform: rotate(300deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(300deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(300deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(300deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont .s17 {
+            -webkit-transform: rotate(300deg);
+            -moz-transform: rotate(300deg);
+            -o-transform: rotate(300deg);
+            transform: rotate(300deg);
+        }
+        .kal_cont .s18 {
+            -webkit-transform: rotate(340deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(340deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(340deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(340deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+
+
+
+	/** 12 secciones **/
+
+	
+        .kal_cont_12 {
+            width: 300vw;
+            height: 300vh;
+            left: -100%;
+            top: -100%;
+            position: relative;
+            margin: auto;
+        }
+        .kal_cont_12 .ks {
+            -webkit-transform-origin: 100% 0.1%;
+            -moz-transform-origin: 100% 0.1%;
+            -o-transform-origin: 100% 0.1%;
+            transform-origin: 100% 0.1%;
+            width: 50%;
+            height: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 10;
+            overflow: hidden;
+        }	
+
+        .kal_cont_12 .ksc {
+            height: 100%;
+            width: 100%;
+            -webkit-transform: rotate(30deg);
+            -moz-transform: rotate(30deg);
+            -o-transform: rotate(30deg);
+            transform: rotate(30deg);
+            position: relative;
+            -webkit-transform-origin: left top;
+            -moz-transform-origin: left top;
+            -o-transform-origin: left top;
+            transform-origin: left top;
+            left: 100%;
+            top: 0;
+            background-image: url('../img/logo.png');
+            background-size: 35vw;
+            -webkit-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -moz-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -ms-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            -o-transition: all 2.5s cubic-bezier(.19,1,.22,1);
+            transition: all 2.5s cubic-bezier(.19,1,.22,1);
+        }
+
+	.kal_cont_12 .s1 {
+            -webkit-transform: rotate(-30deg);
+            -moz-transform: rotate(-30deg);
+            -o-transform: rotate(-30deg);
+            transform: rotate(-30deg);
+        }
+        .kal_cont_12 .s2 {
+            -webkit-transform: rotate(30deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(30deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(30deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(30deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s3 {
+            -webkit-transform: rotate(30deg);
+            -moz-transform: rotate(30deg);
+            -o-transform: rotate(30deg);
+            transform: rotate(30deg);
+        }
+        .kal_cont_12 .s4 {
+            -webkit-transform: rotate(90deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(90deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(90deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(90deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s5 {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            transform: rotate(90deg);
+        }
+        .kal_cont_12 .s6 {
+            -webkit-transform: rotate(150deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(150deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(150deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(150deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s7 {
+            -webkit-transform: rotate(150deg);
+            -moz-transform: rotate(150deg);
+            -o-transform: rotate(150deg);
+            transform: rotate(150deg);
+        }
+        .kal_cont_12 .s8 {
+            -webkit-transform: rotate(210deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(210deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(210deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(210deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s9 {
+            -webkit-transform: rotate(210deg);
+            -moz-transform: rotate(210deg);
+            -o-transform: rotate(210deg);
+            transform: rotate(210deg);
+        }
+        .kal_cont_12 .s10 {
+            -webkit-transform: rotate(270deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(270deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(270deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(270deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s11 {
+            -webkit-transform: rotate(270deg);
+            -moz-transform: rotate(270deg);
+            -o-transform: rotate(270deg);
+            transform: rotate(270deg);
+        }
+        .kal_cont_12 .s12 {
+            -webkit-transform: rotate(330deg) matrix(-1, 0, 0, 1, 0, 0);
+            -moz-transform: rotate(330deg) matrix(-1, 0, 0, 1, 0, 0);
+            -o-transform: rotate(330deg) matrix(-1, 0, 0, 1, 0, 0);
+            transform: rotate(330deg) matrix(-1, 0, 0, 1, 0, 0);
+        }
+        .kal_cont_12 .s13, .kal_cont_12 .s14, .kal_cont_12 .s15, .kal_cont_12 .s16, .kal_cont_12 .s17, .kal_cont_12 .s18{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="kali">
+        <div class="kal_cont_12">
+
+            <div class="ks s1">
+                <div class="ksc">       
+                </div>
+            </div>            
+            <div class="ks s2">
+                <div class="ksc">       
+                </div>
+            </div>
+            <div class="ks s3">
+                <div class="ksc">       
+                </div>
+            </div>
+            <div class="ks s4">
+                <div class="ksc">       
+                </div>
+            </div>
+            <div class="ks s5">
+                <div class="ksc">       
+                </div>
+            </div>
+            <div class="ks s6">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s7">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s8">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s9">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s10">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s11">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s12">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s13">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s14">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s15">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s16">
+                <div class="ksc">       
+                </div>
+            </div>
+            
+            <div class="ks s17">
+                <div class="ksc">       
+                </div>
+            </div>
+
+            <div class="ks s18">
+                <div class="ksc">       
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var moviendo = false;
+            var moviendo_timeout = false;
+            $("body").mousemove(function(e) {
+                moviendo = true;
+                clearTimeout(moviendo_timeout);
+                moviendo_timeout = window.setTimeout(function () {
+                    moviendo = false;
+                },800);
+                
+                var x_percent = (e.clientX - ($(window).width()/2)) / $(window).width() * 100;
+                var y_percen = (e.clientY - ($(window).height()/2)) / $(window).height() * 100;
+
+                $('.kal_cont_12').css({
+                    '-webkit-transform' : 'rotate(' + y_percen/5 + 'deg)',
+                    '-moz-transform'    : 'rotate(' + y_percen/5 + 'deg)',
+                    '-ms-transform'     : 'rotate(' + y_percen/5 + 'deg)',
+                    '-o-transform'      : 'rotate(' + y_percen/5 + 'deg)',
+                    'transform'         : 'rotate(' + y_percen/5 + 'deg)'
+                });
+
+                      
+                
+                //$(this).find(".ksc").each(function(i) {
+                    var bg = $(".ksc").eq(0).css("background-position");
+                    bg_x = bg.split(" ")[0];
+                    bg_y = bg.split(" ")[1];
+                    //var bg_x = $(this).css("background-position-x");
+                    //var bg_y = $(this).css("background-position-y");
+                    bg_x = parseInt(bg_x.replace("%", "").replace("px",""));
+                    bg_y = parseInt(bg_y.replace("%", "").replace("px",""));
+                    var donde_y_pre = e.clientY - $(window).height()/2;
+                    var donde_x_pre = e.clientX - $(window).width()/2;
+                    var donde_x = bg_x + donde_y_pre/3;
+                    var donde_y = bg_y + donde_x_pre/3;
+                    //var donde_y = donde_x_pre/3;
+                    
+                    $(".ksc").css({
+                        //"background-position-x": bg_x + (e.clientX - ($(window).width()/2))/2 + "px ",
+                        //"background-position-y": bg_y + (e.clientY - ($(window).height()/2))/2 + "px"
+                        "-webkit-transition-timing-function": "",
+                        "transition-timing-function": "",
+                        "background-position-x": donde_x + "px ",
+                        "background-position-y": donde_y + "px"
+                    });
+                    
+                
+                //});
+            });
+
+	        $(".kal_cont").on("touchmove", function(e) {
+                moviendo = true;
+                clearTimeout(moviendo_timeout);
+                moviendo_timeout = window.setTimeout(function () {
+                    moviendo = false;
+                },800);
+                
+                var x_percent = (e.originalEvent.touches[0].pageX - ($(window).width()/2)) / $(window).width() * 100;
+                var y_percen = (e.originalEvent.touches[0].pageY - ($(window).height()/2)) / $(window).height() * 100;
+
+                $('.kal_cont12').css({
+                    '-webkit-transform' : 'rotate(' + y_percen/5 + 'deg)',
+                    '-moz-transform'    : 'rotate(' + y_percen/5 + 'deg)',
+                    '-ms-transform'     : 'rotate(' + y_percen/5 + 'deg)',
+                    '-o-transform'      : 'rotate(' + y_percen/5 + 'deg)',
+                    'transform'         : 'rotate(' + y_percen/5 + 'deg)'
+                });
+
+                
+                    var bg_x = $(".ksc").eq(0).css("background-position-x");
+                    var bg_y = $(".ksc").eq(0).css("background-position-y");
+                    bg_x = parseInt(bg_x.replace("%", "").replace("px",""));
+                    bg_y = parseInt(bg_y.replace("%", "").replace("px",""));
+
+                    var donde_x = bg_x + e.originalEvent.touches[0].pageY/4;
+                    var donde_y = bg_y + e.originalEvent.touches[0].pageX/4;
+
+                    $(".ksc").css({
+                        "-webkit-transition-timing-function": "",
+                        "transition-timing-function": "",
+                        "background-position-x": e.originalEvent.touches[0].pageY + "px ",
+                        "background-position-y": e.originalEvent.touches[0].pageX + "px"
+                    });
+                
+            });
+
+
+            
+             window.intervalo_bg = window.setInterval(function() {
+                if (moviendo) return;
+               
+                $(".kal_cont, .kal_cont_12").each(function(i) {
+                    $(this).find(".ksc").each(function(i) {
+                        var bg_x = $(this).css("background-position-x");
+                        var bg_y = $(this).css("background-position-y");
+                        //console.log(bg_x);
+                        bg_x = parseInt(bg_x.replace("%", "").replace("px","")) + 80;
+                        bg_y = parseInt(bg_y.replace("%", "").replace("px","")) + 80;
+                   
+                        $(this).css({
+                            "-webkit-transition-timing-function": "linear", /* Safari and Chrome */
+                            "transition-timing-function": "linear",
+                            "background-position-x": bg_x + "px ",
+                            "background-position-y": bg_y  + "px"
+                        });
+                    });
+                });
+
+            }, 600);
+        });
+    </script>
+</body>
+

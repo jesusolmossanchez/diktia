@@ -1,0 +1,47 @@
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MORPHING</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style type="text/css">
+       
+    </style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="morpher.js" ></script>
+</head>
+<body>
+   
+   	<canvas id=micanvas width="120" height="120"></canvas>
+   	<a id="boton" href="#">CAMBIA</a>
+    <script>
+	    var json = {"images":[{"points":[{"x":3,"y":117},{"x":7,"y":93},{"x":38,"y":75},{"x":34,"y":4},{"x":52,"y":18},{"x":71,"y":20},{"x":93,"y":8},{"x":84,"y":74},{"x":118,"y":96},{"x":116,"y":119}],"src":"dummy120.jpg","x":0,"y":0},{"points":[{"x":50,"y":116},{"x":26,"y":77},{"x":28,"y":48},{"x":24,"y":25},{"x":42,"y":1},{"x":74,"y":6},{"x":92,"y":20},{"x":91,"y":47},{"x":91,"y":84},{"x":72,"y":115}],"src":"flor120.jpg","x":0,"y":0}],"triangles":[[0,1,9],[1,8,9],[2,1,8],[2,7,8],[3,7,2],[3,7,4],[4,5,7],[6,7,5]]}
+	        
+	    var morpher = new Morpher(json);
+
+		morpher.setCanvas($("#micanvas").get(0));
+		morpher.set([1, 0]);
+		var estado = 1;
+		var otroestado = 0;
+
+		$('#boton').click(function(e) {
+			e.preventDefault();
+		  	morpher.animate([otroestado, estado], 500);
+		  	var preestado = estado;
+			estado = otroestado;
+			otroestado = preestado;
+			
+		})
+		/*
+		$(this).find('input').on("input change", function() {
+			var v = $(this).val()*1;
+			morpher.set([1-v, v]);
+		})
+		*/
+    </script>
+
+</body>
+</html>

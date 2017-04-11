@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="paper-full.min.js"></script>
+<script type="text/javascript" src="graham_scan.js"></script>
+<script type="text/javascript" src="hull.js"></script>
+<script type="text/javascript" src="jq.js"></script>
+<script type="text/javascript">
+  paper.install(window);
+
+  window.onload = function() {
+
+
+    var _fillCanvasRadius = 500;
+    var _gradient = "#24A95D,#80BC52,#C1D242,#EBE324,#FFD50F,#FABC26,#F18931,#EB6834,#E44E31,#CB3938,#B6363B,#A53340,#912F42,#812A43,#712543,#631E42,#571840,#49163D,#3C173B,#2D1635,#1C1830,#181726,#14141C,#101112,#0C0C08,#000000".split(",");
+
+
+
+    paper.setup('myCanvas');
+
+    var circulos = [];
+    var prev_x=500;
+    var prev_y=500;
+    function _drawCircleCanvas(x,y)
+    {
+      circulos = [];
+        var f = _fillCanvasRadius;
+
+        var d = (_fillCanvasRadius / _gradient.length);
+        for (var i=_gradient.length-1; i>=0; i--){
+          
+            var myCircle = new Path.Circle(new Point(x, y), (i+1)*d);
+            myCircle.fillColor = _gradient[i];
+            circulos.push(myCircle);
+        }
+    }
+    _drawCircleCanvas(prev_x,prev_y);
+
+
+    var max_puntos = 50;
+    var concavidad = 120;
+    var puntos = [];
+    var punticos = [];
+    for (var i = 0; i < max_puntos; i++) {
+      var x = Math.floor(Math.random()*500)+250;
+      var y = Math.floor(Math.random()*500)+250;
+      puntos.push([x,y]);
+
+      /*
+      var firstPath = new Path.Circle({
+        center: [x, y],
+        radius: 2
+      });
+
+
+      firstPath.strokeColor = '#ff0000';
+      firstPath.fillColor = 'blue';
+      punticos.push(firstPath);
+      */
+    }
+
+    var hullPoints = hull(puntos, concavidad);
+
+    var path = new Path({
+      segments: hullPoints,
+      fillColor: 'red',
+      closed: false
+    });
+
+    var nuevos_path=[];
+
+    nuevos_path[0] = path;
+
+    for (var i = 0; i < circulos.length; i++) {
+    //for (var i = circulos.length-1; i >= 0 ; i--) {
+      //nuevo_path.clear();
+      nuevos_path[i+1] = circulos[i].intersect(nuevos_path[i]);
+      //nuevo_path = circulos[i].exclude(path);
+      //nuevo_path = circulos[i].divide(nuevo_path);
+      //nuevo_path = circulos[i].unite(nuevo_path);
+      circulos[i].clear();
+    }
+
+    var old_path = path;
+    console.log(old_path)
+    path.remove();
+
+    //path.sendToBack();
+    
+    clickado = false;
+    var segmentos_actual;
+    var clickame = document.getElementById("clickable");
+    var new_x;
+    var new_y;
+    function printMousePos(event) {
+      new_x = event.clientX;
+      new_y = event.clientY;
+      //clickado = true;
+      //fin = cuentaeventos + 100;
+      _drawCircleCanvas(new_x,new_y);
+      nuevo_path=[];
+      nuevos_path[0] = path;
+
+      for (var i = 0; i < circulos.length; i++) {
+      //for (var i = circulos.length-1; i >= 0 ; i--) {
+        nuevos_path[i+1] = circulos[i].intersect(nuevos_path[i]);
+        //nuevo_path = circulos[i].exclude(path);
+        //nuevo_path = circulos[i].divide(nuevo_path);
+        //nuevo_path = circulos[i].unite(nuevo_path);
+        circulos[i].clear();
+      }
+      path.remove();
+
+      clickado = true;
+      fin = cuentaeventos + 100;
+
+      var nuevos_puntos = [];
+      var color = "#"+((1<<24)*Math.random()|0).toString(16);
+      for (var i = 0; i < hullPoints.length; i++) {
+          //var x = Math.floor(hullPoints[i][0] + (Math.random()*300) - 150);
+          //var y = Math.floor(hullPoints[i][1] + (Math.random()*300) - 150);
+          var x = Math.floor(Math.random()*500)+250;
+          var y = Math.floor(Math.random()*500)+250;
+          
+
+          nuevos_puntos.push([x,y]);
+        /*
+          var firstPath = new Path.Circle({
+            center: [x, y],
+            radius: 5
+          });
+
+
+          firstPath.strokeColor = color;
+          firstPath.fillColor = color;
+          puntos.push([x,y]);
+          */
+      }
+
+
+      hullPoints2 = hull(nuevos_puntos, concavidad);
+      //hullPoints2 = nuevos_puntos;
+      
+      hull_cercano = [];
+      for (var m = 0; m < hullPoints.length; m++) {
+          var distancia = 10000;
+          var nueva_distancia = 10000;
+          var index_cercano = 0;
+          for (var k = 0; k < hullPoints2.length; k++) {
+            nueva_distancia = Math.sqrt( (hullPoints2[k][0]-hullPoints[m][0])*(hullPoints2[k][0]-hullPoints[m][0]) + (hullPoints2[k][1]-hullPoints[m][1])*(hullPoints2[k][1]-hullPoints[m][1]) );
+            if(nueva_distancia < distancia){
+              distancia = nueva_distancia;
+              index_cercano = k;
+            }
+          }
+          hull_cercano[m]=hullPoints2[index_cercano];
+      }
+      
+      //console.log(path.segments);
+      //console.log(hullPoints2);
+      console.log(hull_cercano.length);
+
+
+    }
+
+    document.addEventListener("click", printMousePos);
+
+
+    var fin;
+    var hull_cercano = [];
+    clickame.onclick = function (e) {
+
+      
+
+      clickado = true;
+      fin = cuentaeventos + 100;
+
+      var nuevos_puntos = [];
+      var color = "#"+((1<<24)*Math.random()|0).toString(16);
+      for (var i = 0; i < hullPoints.length; i++) {
+          //var x = Math.floor(hullPoints[i][0] + (Math.random()*300) - 150);
+          //var y = Math.floor(hullPoints[i][1] + (Math.random()*300) - 150);
+          var x = Math.floor(Math.random()*500)+250;
+          var y = Math.floor(Math.random()*500)+250;
+          
+
+          nuevos_puntos.push([x,y]);
+        /*
+          var firstPath = new Path.Circle({
+            center: [x, y],
+            radius: 5
+          });
+
+
+          firstPath.strokeColor = color;
+          firstPath.fillColor = color;
+          puntos.push([x,y]);
+          */
+      }
+
+
+      hullPoints2 = hull(nuevos_puntos, concavidad);
+      //hullPoints2 = nuevos_puntos;
+      
+      hull_cercano = [];
+      for (var m = 0; m < hullPoints.length; m++) {
+          var distancia = 10000;
+          var nueva_distancia = 10000;
+          var index_cercano = 0;
+          for (var k = 0; k < hullPoints2.length; k++) {
+            nueva_distancia = Math.sqrt( (hullPoints2[k][0]-hullPoints[m][0])*(hullPoints2[k][0]-hullPoints[m][0]) + (hullPoints2[k][1]-hullPoints[m][1])*(hullPoints2[k][1]-hullPoints[m][1]) );
+            if(nueva_distancia < distancia){
+              distancia = nueva_distancia;
+              index_cercano = k;
+            }
+          }
+          hull_cercano[m]=hullPoints2[index_cercano];
+      }
+      
+      //console.log(path.segments);
+      //console.log(hullPoints2);
+      console.log(hull_cercano.length);
+      
+
+    };
+
+    
+  
+
+    var cuentaeventos ;
+
+    view.onFrame = function(event) {
+      cuentaeventos = event.count;
+      if(clickado){
+        if(event.count < fin){
+          for (var i = 0; i < hull_cercano.length; i++) {
+            path.segments[i].point.x = (path.segments[i].point.x + (hull_cercano[i][0] - path.segments[i].point.x)/(fin - event.count));
+            path.segments[i].point.y = (path.segments[i].point.y + (hull_cercano[i][1] - path.segments[i].point.y)/(fin - event.count));
+          }
+          for (var i = 0; i < circulos.length; i++) {
+            
+/*
+            circulos[i].position.x = new Point(200, 200);
+            circulos[i].position.y = new Point(200, 200);
+
+//            nuevo_path = circulos[i].intersect(nuevo_path);
+            circulos[i].clear();
+            
+
+          */
+          }
+          //nuevo_path.clear();
+          //path.clear();
+        }
+        else{
+          clickado = false;
+        }
+      }
+    };
+    paper.view.draw();
+    
+
+
+  };
+</script>
+</head>
+<body>
+  <canvas id="myCanvas" width="1000" height="1000" ></canvas>
+  <a id="clickable" href="#">CLICKA</a>
+</body>
+</html>

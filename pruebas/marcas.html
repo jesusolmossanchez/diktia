@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<title>DIKTIA</title>
+	<style type="text/css">
+		html, body{
+			margin:0;
+		}
+	</style>
+</head>
+<body>
+<div id="game"></div>
+<script src="phaser.min.js"></script>
+<script type="text/javascript">
+	var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game');
+	var mainState = { 
+		preload:function(){
+			if (this.game.device.desktop){
+				game.load.image('diktia', 'logo.png');
+				game.load.image('boton', 'boton.png');
+				game.load.physics('physicsData', 'logo.json');
+				game.load.image('cosica', 'cosica2.png');
+			}  
+			else{
+				game.load.image('diktia', 'logo2.png');
+				game.load.image('boton', 'boton2.png');
+				game.load.physics('physicsData', 'logo2.json');
+				game.load.image('cosica', 'cosica2_mobile.png');
+
+			}
+
+			//	Load our physics data exported from PhysicsEditor
+			game.load.physics('physicsData', 'logo.json');
+			//game.load.physics('physicsData', 'logo2.json');
+
+			this.points = {
+			    'x': [280, 318, 320, 275, 335, 400, 430, 540, 605, 575],
+			    'y': [270, 383, 437, 555, 630, 600, 530, 570, 515, 415]
+			};
+
+
+		},
+	 	create: function() {
+	 		game.stage.backgroundColor = '#ffffff'
+			//	Enable p2 physics
+			game.physics.startSystem(Phaser.Physics.P2JS);
+
+		    //  Make things a bit more bouncey
+		    //game.physics.p2.defaultRestitution = 0.8;
+
+			diktia = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'diktia');
+			this.cosica = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'cosica');
+			diktia.anchor.setTo(0.5, 0.5);
+
+
+			//MOVIL
+			
+			if (!this.game.device.desktop){
+	            this.acc = this.add.sprite(this.world.width - 80, this.world.height - 80, 'boton');
+	            this.izq = this.add.sprite(20, this.world.height - 80, 'boton');
+	            this.der = this.add.sprite(100, this.world.height - 80, 'boton');
+	            this.acc.inputEnabled = true;
+	            this.izq.inputEnabled = true;
+	            this.der.inputEnabled = true;
+
+	            this.izq.input.sprite.events.onInputDown.add(this.izquierda, this);
+	            this.der.input.sprite.events.onInputDown.add(this.derecha, this);
+	            this.acc.input.sprite.events.onInputDown.add(this.acelera, this);
+
+	            this.izq.input.sprite.events.onInputUp.add(this.izquierda_out, this);
+	            this.der.input.sprite.events.onInputUp.add(this.derecha_out, this);
+	            this.acc.input.sprite.events.onInputUp.add(this.acelera_out, this);
+
+	            this.acelera_press, this.izq_press, this.der_press;
+	        }
+
+
+			//	Enable the physics bodies on all the sprites and turn on the visual debugger
+			game.physics.p2.enable([ diktia, this.cosica ], false);
+			diktia.body.static =true;
+			this.cosica.anchor.setTo(0.5, 0.5);
+
+			diktia.body.clearShapes();
+			diktia.body.loadPolygon('physicsData', 'logo');
+
+			this.graphics = game.add.graphics(0,0);
+			this.graphics2 = game.add.graphics(0,0);
+
+		    var angle = this.cosica.body.rotation + (Math.PI / 2);
+
+		    this.old1_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*5;
+		    this.old1_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*5;
+		    this.old2_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*(-5);
+		    this.old2_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*(-5);
+
+
+		    this.trololo;
+		},	
+		borralinea: function (linea) {
+			linea.alpha = 0.1;
+		},
+		borra_clear: function(a){
+	      	a.destroy();
+	    },
+		izquierda: function () {
+			this.izq_press = true;
+		},
+		derecha: function () {
+			this.der_press = true;
+		},
+		acelera: function () {
+			this.acelera_press = true;
+		},
+		izquierda_out: function () {
+			this.izq_press = false;
+		},
+		derecha_out: function () {
+			this.der_press = false;;
+		},
+		acelera_out: function () {
+			this.acelera_press = false;
+		},
+		update: function() {
+			//Frenado y quitando rotación
+			this.cosica.body.damping = 0.6;
+			if(Math.abs(this.cosica.body.velocity.x)>Math.abs(this.cosica.body.velocity.y)){
+		    	this.trololo = Math.pow(Math.abs(this.cosica.body.velocity.x),2)/14000;
+			}
+			else{
+				this.trololo = Math.pow(Math.abs(this.cosica.body.velocity.y),2)/14000;
+			}
+		    //console.log(this.cosica.body.angularVelocity);
+		    this.cosica.body.setZeroRotation();
+		    
+		    //this.graphics2.drawCircle(this.cosica.body.x,this.cosica.body.y, 3);
+/*
+		    if (this.trololo > 0.02 && this.trololo < 3){
+
+		    	let graphics = game.add.graphics(0,0);
+				let graphics2 = game.add.graphics(0,0);
+		    	graphics.lineStyle(2.5, 0x111111, this.trololo);
+		    	graphics2.lineStyle(2.5, 0x111111, this.trololo);
+          		graphics.moveTo(this.old1_x,this.old1_y);
+		    	graphics2.moveTo(this.old2_x,this.old2_y);
+
+
+		    	var angle = this.cosica.body.rotation + (Math.PI / 2);
+		    	
+				//this.graphics3.lineTo(this.cosica.body.x+(Math.cos(angle)*15),this.cosica.body.y+(Math.sin(angle)*15));
+		    	//this.graphics4.lineTo(this.cosica.body.x+(Math.cos(angle)*(-15)),this.cosica.body.y+(Math.sin(angle)*(-15)));
+
+		    	this.old1_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*4+Math.cos(angle)*5;
+				this.old1_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*4+Math.sin(angle)*5;
+				this.old2_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*(-4)+Math.cos(angle)*5;
+				this.old2_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*(-4)+Math.sin(angle)*5;
+		    	graphics.lineTo(this.old1_x,this.old1_y);
+		    	graphics2.lineTo(this.old2_x,this.old2_y);
+
+				var tween1 = game.add.tween(graphics).to( { alpha: 0 }, 4000, "Linear", true, 2000);
+          		tween1.onComplete.add(function(){this.borra_clear(graphics)}, this);
+          		var tween2 = game.add.tween(graphics2).to( { alpha: 0 }, 4000, "Linear", true, 2000);
+          		tween2.onComplete.add(function(){this.borra_clear(graphics2)}, this);
+		    }
+		    else{
+		    	var angle = this.cosica.body.rotation + (Math.PI / 2);
+		    	this.old1_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*4+Math.cos(angle)*5;
+				this.old1_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*4+Math.sin(angle)*5;
+				this.old2_x = this.cosica.body.x+Math.cos(this.math.degToRad(this.cosica.body.angle))*(-4)+Math.cos(angle)*5;
+				this.old2_y = this.cosica.body.y+Math.sin(this.math.degToRad(this.cosica.body.angle))*(-4)+Math.sin(angle)*5;
+		    }
+		    
+*/	    	
+
+		    var angle = this.cosica.body.rotation + (Math.PI / 2);
+		    	
+			//this.graphics3.lineTo(this.cosica.body.x+(Math.cos(angle)*15),this.cosica.body.y+(Math.sin(angle)*15));
+		    //this.graphics4.lineTo(this.cosica.body.x+(Math.cos(angle)*(-15)),this.cosica.body.y+(Math.sin(angle)*(-15)));
+
+		    //Acelerar
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.UP) || this.acelera_press){
+
+
+		    	//giro
+		    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || this.izq_press) {
+					this.cosica.body.angularVelocity = -5;
+				}   //this.cosica movement
+			    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || this.der_press){
+			    	this.cosica.body.angularVelocity = 5;
+			    }
+		    	this.cosica.body.thrust(300);
+		    	//var angle = this.cosica.body.rotation + (Math.PI / 2);
+			    //this.cosica.body.velocity.x = 100 * Math.cos(angle);
+			    //this.cosica.body.velocity.y = 100 * Math.sin(angle);
+		    }
+		  	//giro sin aceleración
+		    else{
+		    	//this.trololo = 0;
+		    	//this.graphics.moveTo(this.cosica.body.x+(Math.cos(this.math.degToRad(this.cosica.body.angle))*5),this.cosica.body.y+(Math.sin(this.math.degToRad(this.cosica.body.angle))*5));
+		    	//this.graphics2.moveTo(this.cosica.body.x+(Math.cos(this.math.degToRad(this.cosica.body.angle))*(-5)),this.cosica.body.y+(Math.sin(this.math.degToRad(this.cosica.body.angle))*(-5)));
+		    	if(Math.abs(this.cosica.body.velocity.x) > 6 || Math.abs(this.cosica.body.velocity.y) > 6){
+			    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+						this.cosica.body.rotateLeft(10);
+					} 
+				    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+				    	this.cosica.body.rotateRight(10);
+				    }
+			    }
+		    } 
+		    //Freno
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.C)){
+		    	//this.cosica.body.reverse(200);
+		    	if(this.cosica.body.velocity.x > 6){
+		    		this.cosica.body.velocity.x = this.cosica.body.velocity.x - 5;
+		    	}
+		    	else if(this.cosica.body.velocity.x < -6){
+		    		this.cosica.body.velocity.x = this.cosica.body.velocity.x + 5;
+
+		    	}
+		    	if(this.cosica.body.velocity.y > 6){
+		    		this.cosica.body.velocity.y = this.cosica.body.velocity.y - 5;
+		    	}
+		    	else if(this.cosica.body.velocity.y < -6){
+		    		this.cosica.body.velocity.y = this.cosica.body.velocity.y + 5;
+
+		    	}
+		    	
+		    }
+			    
+		}
+
+
+	};
+	game.state.add('main', mainState);  
+	game.state.start('main');
+
+</script>
+</body>
+</html>

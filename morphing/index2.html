@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="paper-full.min.js"></script>
+<script type="text/javascript" src="graham_scan.js"></script>
+<script type="text/javascript" src="hull.js"></script>
+<script type="text/javascript">
+  paper.install(window);
+
+  window.onload = function() {
+    paper.setup('myCanvas');
+    var max_puntos = 50;
+    var concavidad = 120;
+    var puntos = [];
+    var punticos = [];
+    for (var i = 0; i < max_puntos; i++) {
+      var x = Math.floor(Math.random()*500)+250;
+      var y = Math.floor(Math.random()*500)+250;
+      puntos.push([x,y]);
+
+      /*
+      var firstPath = new Path.Circle({
+        center: [x, y],
+        radius: 2
+      });
+
+
+      firstPath.strokeColor = '#ff0000';
+      firstPath.fillColor = 'blue';
+      punticos.push(firstPath);
+      */
+    }
+
+    var hullPoints = hull(puntos, concavidad);
+
+    var path = new Path({
+      segments: hullPoints,
+      fillColor: 'red',
+      closed: false
+    });
+
+
+    path.sendToBack();
+    
+    clickado = false;
+    var segmentos_actual;
+    var clickame = document.getElementById("clickable");
+
+    var fin;
+    var hull_cercano = [];
+    clickame.onclick = function () {
+
+
+
+      clickado = true;
+      fin = cuentaeventos + 100;
+
+      var nuevos_puntos = [];
+      var color = "#"+((1<<24)*Math.random()|0).toString(16);
+      for (var i = 0; i < hullPoints.length; i++) {
+          //var x = Math.floor(hullPoints[i][0] + (Math.random()*300) - 150);
+          //var y = Math.floor(hullPoints[i][1] + (Math.random()*300) - 150);
+          var x = Math.floor(Math.random()*500)+250;
+          var y = Math.floor(Math.random()*500)+250;
+          
+
+          nuevos_puntos.push([x,y]);
+        /*
+          var firstPath = new Path.Circle({
+            center: [x, y],
+            radius: 5
+          });
+
+
+          firstPath.strokeColor = color;
+          firstPath.fillColor = color;
+          puntos.push([x,y]);
+          */
+      }
+
+
+      hullPoints2 = hull(nuevos_puntos, concavidad);
+      //hullPoints2 = nuevos_puntos;
+      
+      hull_cercano = [];
+      for (var m = 0; m < hullPoints.length; m++) {
+          var distancia = 10000;
+          var nueva_distancia = 10000;
+          var index_cercano = 0;
+          for (var k = 0; k < hullPoints2.length; k++) {
+            nueva_distancia = Math.sqrt( (hullPoints2[k][0]-hullPoints[m][0])*(hullPoints2[k][0]-hullPoints[m][0]) + (hullPoints2[k][1]-hullPoints[m][1])*(hullPoints2[k][1]-hullPoints[m][1]) );
+            if(nueva_distancia < distancia){
+              distancia = nueva_distancia;
+              index_cercano = k;
+            }
+          }
+          hull_cercano[m]=hullPoints2[index_cercano];
+      }
+      
+      //console.log(path.segments);
+      //console.log(hullPoints2);
+      console.log(hull_cercano.length);
+      
+
+    };
+
+    
+  
+
+    var cuentaeventos ;
+
+    view.onFrame = function(event) {
+      cuentaeventos = event.count;
+      if(clickado){
+        if(event.count < fin){
+          for (var i = 0; i < hull_cercano.length; i++) {
+            path.segments[i].point.x = (path.segments[i].point.x + (hull_cercano[i][0] - path.segments[i].point.x)/(fin - event.count));
+            path.segments[i].point.y = (path.segments[i].point.y + (hull_cercano[i][1] - path.segments[i].point.y)/(fin - event.count));
+          }
+        }
+        else{
+          clickado = false;
+        }
+      }
+    };
+    paper.view.draw();
+    
+
+
+  };
+</script>
+</head>
+<body>
+  <canvas id="myCanvas" width="1000" height="1000" ></canvas>
+  <a id="clickable" href="#">CLICKA</a>
+</body>
+</html>

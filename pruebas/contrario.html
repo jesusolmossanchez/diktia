@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>COSA</title>
+</head>
+<body>
+<div id="game"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/2.4.4/phaser.min.js"></script>
+<script type="text/javascript">
+	var game = new Phaser.Game(800, 800, Phaser.AUTO, 'game');
+	var mainState = { 
+		preload:function(){
+			game.load.image('diktia', 'logo.png');
+			game.load.image('cosica', 'cosica2.png');
+
+			//	Load our physics data exported from PhysicsEditor
+			game.load.physics('physicsData', 'logo.json');
+
+			this.points = {
+			    'x': [280, 318, 320, 275, 335, 400, 430, 540, 605, 575],
+			    'y': [270, 383, 437, 555, 630, 600, 530, 570, 515, 415]
+			};
+
+
+		},
+	 	create: function() {
+	 		game.stage.backgroundColor = '#ffffff'
+			//	Enable p2 physics
+			game.physics.startSystem(Phaser.Physics.P2JS);
+
+		    //  Make things a bit more bouncey
+		    //game.physics.p2.defaultRestitution = 0.8;
+
+			diktia = game.add.sprite(400, 400, 'diktia');
+			cosica = game.add.sprite(100, 100, 'cosica');
+			cosica2 = game.add.sprite(280, 270, 'cosica');
+			cosica2.anchor.setTo(0.5, 0.5);
+
+			//	Enable the physics bodies on all the sprites and turn on the visual debugger
+			game.physics.p2.enable([ diktia, cosica, cosica2 ], false);
+			diktia.body.static =true;
+
+			diktia.body.clearShapes();
+			diktia.body.loadPolygon('physicsData', 'logo');
+
+			//	Just starts it rotating
+			//game.input.onDown.add(this.boom);
+
+
+			this.bmd = this.add.bitmapData(this.game.width, this.game.height);
+    		this.bmd.addToWorld();
+    		this.increment = 0.01;
+
+    		this.interpolatados_x=[];
+    		this.interpolatados_y=[];
+
+		    for (var j = 0; j < 1; j += this.increment) {
+		      var posx = this.math.linearInterpolation(this.points.x, j);
+		      this.interpolatados_x.push(posx);
+		      var posy = this.math.linearInterpolation(this.points.y, j);
+		      this.interpolatados_y.push(posy);
+		      this.bmd.rect(posx, posy, 3, 3, 'rgba(245, 0, 0, 1)');
+		    }
+
+		    this.derecha = true;
+		    this.abajo = true;
+		    this.checkpoint1, this.checkpoint2, this.checkpoint3,this.checkpoint4, this.checkpoint5, 
+		    this.checkpoint6, this.checkpoint7, this.checkpoint8, this.checkpoint9, this.checkpoint10 = false;
+
+
+		},
+
+		mueve: function  (x,y) { 
+		    var dx = x - cosica2.body.x;
+		    var dy = y - cosica2.body.y;
+		    bulletRotation= Math.atan2(dy, dx);
+		    cosica2.body.rotation = bulletRotation + game.math.degToRad(-90);
+		    var angle = cosica2.body.rotation + (Math.PI / 2);
+		    cosica2.body.velocity.x = 100 * Math.cos(angle);
+		    cosica2.body.velocity.y = 100 * Math.sin(angle);
+
+
+		},
+
+		getNextPoint: function(){
+			var min_x = false;
+			var min_y = false;
+			min_pos = 0;
+			for (var i = this.points.x.length - 1; i >= 0; i--) {
+				if((this.points.x[i]>cosica2.body.x || this.points.y[i]>cosica2.body.y) && (this.points.x[i] < min_x || min_x ===false)){
+					min_x = this.points.x[i];
+					min_pos = i;
+				}
+			}
+			return min_pos;
+		},
+
+		getNextPointInterpol: function(){
+			var min_x = false;
+			var min_y = false;
+			min_pos = 0;
+			for (var i = this.interpolatados_x.length - 1; i >= 0; i--) {
+				if(this.derecha){
+					if(this.abajo){
+						if((this.interpolatados_x[i]>cosica2.body.x && this.interpolatados_y[i]>cosica2.body.y) && (Math.abs(this.interpolatados_x[i]-cosica2.body.x) < min_x || min_x ===false)){
+							min_x = this.interpolatados_x[i];
+							min_pos = i;
+						}
+					}
+					else{
+						if((this.interpolatados_x[i]>cosica2.body.x && this.interpolatados_y[i]<cosica2.body.y) && (Math.abs(this.interpolatados_x[i]-cosica2.body.x) < min_x || min_x ===false)){
+							min_x = this.interpolatados_x[i];
+							min_pos = i;
+						}
+					}
+					
+				}
+				else{
+					if(this.abajo){
+						if((this.interpolatados_x[i]<cosica2.body.x && this.interpolatados_y[i]>cosica2.body.y) && (Math.abs(this.interpolatados_x[i]-cosica2.body.x) < min_x || min_x ===false)){
+							min_x = this.interpolatados_x[i];
+							min_pos = i;
+						}
+					}
+					else{
+						if((this.interpolatados_x[i]<cosica2.body.x && this.interpolatados_y[i]<cosica2.body.y) && (Math.abs(this.interpolatados_x[i]-cosica2.body.x) < min_x || min_x ===false)){
+							min_x = Math.abs(this.interpolatados_x[i]-cosica2.body.x);
+							min_pos = i;
+						}
+					}
+					
+				}
+			}
+			//console.log(min_pos);
+			return min_pos;
+		},
+
+		checkCheckPoint: function(x, y, objeto) {
+			
+	        var dist = Math.sqrt( Math.pow((x-objeto.body.x), 2) + Math.pow((y-objeto.body.y), 2) );  
+	        //console.log(dist)    
+	        if (dist < 10){
+	            return true;
+	        }
+	        else{
+	            return false;
+	        }
+	    },
+		update: function() {
+			//Frenado y quitando rotación
+			cosica.body.damping = 0.9;
+		    cosica.body.setZeroRotation();
+
+		    //Acelerar
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+		    	//giro
+		    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+					cosica.body.rotateLeft(100);
+				}   //cosica movement
+			    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			    	cosica.body.rotateRight(100);
+			    }
+		    	cosica.body.thrust(400);
+		    	//var angle = cosica.body.rotation + (Math.PI / 2);
+			    //cosica.body.velocity.x = 100 * Math.cos(angle);
+			    //cosica.body.velocity.y = 100 * Math.sin(angle);
+		    }
+		  	//giro sin aceleración
+		    else if(Math.abs(cosica.body.velocity.x) > 6 || Math.abs(cosica.body.velocity.y) > 6){
+		    	if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+					cosica.body.rotateLeft(10);
+				} 
+			    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+			    	cosica.body.rotateRight(10);
+			    }
+		    }
+		    //Freno
+		    if (game.input.keyboard.isDown(Phaser.Keyboard.C)){
+		    	//cosica.body.reverse(200);
+		    	if(cosica.body.velocity.x > 6){
+		    		cosica.body.velocity.x = cosica.body.velocity.x - 5;
+		    	}
+		    	else if(cosica.body.velocity.x < -6){
+		    		cosica.body.velocity.x = cosica.body.velocity.x + 5;
+
+		    	}
+		    	if(cosica.body.velocity.y > 6){
+		    		cosica.body.velocity.y = cosica.body.velocity.y - 5;
+		    	}
+		    	else if(cosica.body.velocity.y < -6){
+		    		cosica.body.velocity.y = cosica.body.velocity.y + 5;
+
+		    	}
+		    	
+		    }
+
+			//CHECKPOINTS
+			//'x': [280, 318, 320, 275, 335, 400, 430, 540, 605, 575],
+			//'y': [270, 383, 437, 555, 630, 600, 530, 570, 515, 415]
+			
+			if(this.checkCheckPoint(this.points.x[1],this.points.y[1],cosica2)){
+				this.checkpoint1 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[2],this.points.y[2],cosica2)){
+				this.checkpoint2 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[3],this.points.y[3],cosica2)){
+				this.checkpoint3 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[4],this.points.y[4],cosica2)){
+				this.checkpoint4 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[5],this.points.y[5],cosica2)){
+				this.checkpoint5 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[6],this.points.y[6],cosica2)){
+				this.checkpoint6 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[7],this.points.y[7],cosica2)){
+				this.checkpoint7 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[8],this.points.y[8],cosica2)){
+				this.checkpoint8 = true;
+			}
+			
+			if(this.checkCheckPoint(this.points.x[9],this.points.y[9],cosica2)){
+				this.checkpoint9 = true;
+			}
+			
+
+			if(this.checkpoint1){
+				this.abajo = true;
+				this.derecha = true;
+			}
+			if(this.checkpoint2){
+				this.abajo = true;
+				this.derecha = false;
+			}
+			if(this.checkpoint3){
+				this.abajo = true;
+				this.derecha = true;
+			}
+			if(this.checkpoint4){
+				this.abajo = false;
+				this.derecha = true;
+			}
+			if(this.checkpoint6){
+				this.abajo = true;
+				this.derecha = true;
+			}
+			if(this.checkpoint7){
+				this.abajo = false;
+				this.derecha = true;
+			}
+			if(this.checkpoint8){
+				this.abajo = false;
+				this.derecha = false;
+			}
+
+
+			//Pilla el siguiente punto cPU y se mueve allí
+		    var next_point = this.getNextPointInterpol();
+		    this.mueve(this.interpolatados_x[next_point], this.interpolatados_y[next_point]);
+			      
+			    
+		}
+
+
+	};
+	game.state.add('main', mainState);  
+	game.state.start('main');
+
+</script>
+</body>
+</html>

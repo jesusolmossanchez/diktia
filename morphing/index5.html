@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="paper-full.min.js"></script>
+<script type="text/javascript" src="hull.js"></script>
+<script type="text/javascript">
+  paper.install(window);
+
+  window.onload = function() {
+
+
+    var _fillCanvasRadius = 500;
+    var _gradient = "#24A95D,#80BC52,#C1D242,#EBE324,#FFD50F,#FABC26,#F18931,#EB6834,#E44E31,#CB3938,#B6363B,#A53340,#912F42,#812A43,#712543,#631E42,#571840,#49163D,#3C173B,#2D1635,#1C1830,#181726,#14141C,#101112,#0C0C08,#000000".split(",");
+
+
+
+    paper.setup('myCanvas');
+
+   
+    var max_puntos = 150;
+    var concavidad = 80;
+    var puntos = [];
+    var punticos = [];
+    for (var i = 0; i < max_puntos; i++) {
+      var x = Math.floor(Math.random()*500)+250;
+      var y = Math.floor(Math.random()*500)+250;
+      puntos.push([x,y]);
+    }
+
+    var hullPoints = hull(puntos, concavidad);
+
+    var path = new Path({
+      segments: hullPoints,
+      fillColor: 'red',
+      closed: false
+    });
+    
+    var raster = new Raster('dummy');
+    raster.fitBounds(view.bounds, true);
+    var group = new Group([path, raster]);
+    group.clipped = true;
+
+
+
+
+    
+    clickado = false;
+    var segmentos_actual;
+    var new_x;
+    var new_y;
+    function printMousePos(event) {
+      	new_x = event.clientX;
+      	new_y = event.clientY;
+
+
+        escale = Math.random() - 0.5;
+    	escale = escale/100;
+      
+		clickado = true;
+		fin = cuentaeventos + 50;
+
+		var nuevos_puntos = [];
+		var color = "#"+((1<<24)*Math.random()|0).toString(16);
+		for (var i = 0; i < hullPoints.length; i++) {
+		  	var x = Math.floor(Math.random()*500)+250;
+		  	var y = Math.floor(Math.random()*500)+250;
+
+		  	nuevos_puntos.push([x,y]);
+		}
+
+		hullPoints2 = hull(nuevos_puntos, concavidad);
+
+		hull_cercano = [];
+		for (var m = 0; m < hullPoints.length; m++) {
+			var distancia = 10000;
+			var nueva_distancia = 10000;
+			var index_cercano = 0;
+			for (var k = 0; k < hullPoints2.length; k++) {
+				nueva_distancia = Math.sqrt( (hullPoints2[k][0]-hullPoints[m][0])*(hullPoints2[k][0]-hullPoints[m][0]) + (hullPoints2[k][1]-hullPoints[m][1])*(hullPoints2[k][1]-hullPoints[m][1]) );
+				if(nueva_distancia < distancia){
+			  		distancia = nueva_distancia;
+			  		index_cercano = k;
+				}
+			}
+			hull_cercano[m]=hullPoints2[index_cercano];
+		}
+      
+
+
+    }
+
+    document.addEventListener("click", printMousePos);
+
+
+    var fin;
+    var cuentaeventos ;
+      	
+    var escale;
+
+    view.onFrame = function(event) {
+      cuentaeventos = event.count;
+      if(clickado){
+      	console.log(escale);
+        if(event.count < fin){
+          for (var i = 0; i < hull_cercano.length; i++) {
+            path.segments[i].point.x = (path.segments[i].point.x + (hull_cercano[i][0] - path.segments[i].point.x)/(fin - event.count));
+            path.segments[i].point.y = (path.segments[i].point.y + (hull_cercano[i][1] - path.segments[i].point.y)/(fin - event.count));
+          }
+          raster.position.x = raster.position.x + (new_x-raster.position.x)/(fin - event.count);
+          raster.position.y = raster.position.y + (new_y-raster.position.y)/(fin - event.count);
+          console.log(escale)
+          raster.scale(1+escale,1+escale)
+        }
+        else{
+          	clickado = false;
+        }
+      }
+    };
+    paper.view.draw();
+    
+
+
+  };
+</script>
+</head>
+<body>
+  <canvas id="myCanvas" width="1000" height="1000" ></canvas>
+  <img width="512" height="512" id="dummy" style="display: none;" src="a.png" />
+</body>
+</html>

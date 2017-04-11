@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'UniversLTStd-LightCn';
+  src: url('UniversLTStd-LightCn.eot');
+  src: url('UniversLTStd-LightCn.woff2') format('woff2'),
+       url('UniversLTStd-LightCn.woff') format('woff'),
+       url('UniversLTStd-LightCn.ttf') format('truetype'),
+       url('UniversLTStd-LightCn.svg#UniversLTStd-LightCn') format('svg'),
+       url('UniversLTStd-LightCn.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
