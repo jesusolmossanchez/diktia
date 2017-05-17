@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="utf-8">
+    <title>DIKTIA | Pinta</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../favicons/manifest.json">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="../favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    
+    <meta name="description" content="DIKTIA - Hacemos cosas chulas para la web...">
+    <meta name="keywords" content="DIKTIA, web, diseño, juegos">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+
+    <meta property="og:url" content="http://www.diktia.com"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Cino_power">
+    <meta name="twitter:creator" content="@Cino_power">
+    <meta property="og:title" content="DIKTIA"/>
+    <meta name="twitter:title" content="DIKTIA">
+    <meta property="og:description" content="Hacemos cosas chulas para la web..."/>
+    <meta name="twitter:description" content="Hacemos cosas chulas para la web...">
+    <meta property="og:image" content="http://www.diktia.com/logo_share.png"/>
+    <meta name="twitter:image" content="http://www.diktia.com/logo_share.png"/>
+
+    <style type="text/css">
+        #ll-post-content {
+            width: 400px;
+            height: 400px;
+            padding: 10px;
+            position: relative;
+            margin: 0 auto;
+            text-align:center;
+        }
+
+        #bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(http://diktia.com/img/logo.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 400px;
+            opacity: 0.1;
+        }
+
+	@media (max-width :767px) {
+	        #ll-post-content {
+		}
+		#ll-animation{
+		    transform: scale(0.6);
+		    transform-origin: center;
+		}
+	}
+    </style>
+</head>
+<body>
+    <div id="ll-post-content"> 
+        <div id="ll-animation">
+            <div id="bg"></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+    <script type="text/javascript">
+    	// Include Lazy Line Painter 1.4.1
+/* 
+* Lazy Line Painter 1.4.1
+* SVG Stroke animation.
+*
+* https://github.com/camoconnell/lazy-line-painter
+* http://www.camoconnell.com
+*
+* Copyright 2013 Cam O'Connell
+* Licensed under the MIT license.
+*  
+*/ 
+(function(e,r,p){var l={init:function(c){return this.each(function(){var a=e(this),b=a.data("lazyLinePainter");a.addClass("lazy-line");if(!b){var b=e.extend({width:null,height:null,strokeWidth:2,strokeColor:"#000",strokeCap:"round",strokeJoin:"round",strokeOpacity:1,strokeDash:null,onComplete:null,delay:null,overrideKey:null},c),h=null===b.overrideKey?a.attr("id").replace("#",""):b.overrideKey,f=b.svgData[h].dimensions.width,k=b.svgData[h].dimensions.height;b.svgData=b.svgData[h].strokepath;null===
+b.width&&(b.width=f);null===b.height&&(b.height=k);h=a.attr("id");f=new Raphael(h,f,k);a.data("lazyLinePainter",{svgData:b.svgData,width:b.width,height:b.height,strokeWidth:b.strokeWidth,strokeColor:b.strokeColor,strokeCap:b.strokeCap,strokeJoin:b.strokeJoin,strokeOpacity:b.strokeOpacity,strokeDash:b.strokeDash,onComplete:b.onComplete,delay:b.delay,overrideKey:b.overrideKey,paper:f,count:1,complete:!1,playhead:0,setTimeOutHandler:[]})}})},paint:function(){return this.each(function(){var c=e(this),
+a=c.data("lazyLinePainter"),b=function(){c.css({width:a.width,height:a.height});e.each(a.svgData,function(b,f){var e=a.paper.path(f.path);e.attr({stroke:"none","stroke-width":a.strokeWidth,"fill-opacity":0});var g=setTimeout(function(){n({count:a.count,canvas:a.paper,pathstr:e,duration:f.duration,attr:m(a,f),callback:function(b){a.setTimeOutHandler.splice(a.count,1);a.count++;a.svgData.length+1==a.count&&(a.complete=!0,null!==a.onComplete&&a.onComplete.call(c))}})},a.playhead);a.playhead+=f.duration;
+a.setTimeOutHandler.push(g)})};null===a.delay?b():setTimeout(b,a.delay)})},erase:function(){return this.each(function(){var c=e(this);c.find("svg").empty();d=c.data("lazyLinePainter");for(i=0;i<d.setTimeOutHandler.length;i++)clearTimeout(d.setTimeOutHandler[i]);d.playhead=0;d.count=0;d.complete=!1})},destroy:function(){return this.each(function(){var c=e(this);c.data("lazyLinePainter");c.removeData("lazyLinePainter");c.remove()})},stamp:function(){return this.each(function(){var c=e(this),a=c.data("lazyLinePainter"),
+b=function(){c.css({width:a.width,height:a.height});for(i=0;i<a.svgData.length;i++)a.paper.path(a.svgData[i].path).attr(m(a,a.svgData[i]))};null===a.delay?b():setTimeout(b,a.delay)})}},m=function(c,a){return{stroke:a.strokeColor?a.strokeColor:c.strokeColor,"fill-opacity":0,"stroke-dasharray":a.strokeDash?a.strokeDash:c.strokeDash,"stroke-opacity":a.strokeOpacity?a.strokeOpacity:c.strokeOpacity,"stroke-width":a.strokeWidth?a.strokeWidth:c.strokeWidth,"stroke-linecap":a.strokeCap?a.strokeCap:c.strokeCap,
+"stroke-linejoin":a.strokeJoin?a.strokeJoin:c.strokeJoin}},n=function(c){var a=c.canvas,b=c.pathstr,e=c.duration,f=c.attr,k=c.callback,g;g="string"==typeof b?a.path(b).attr({stroke:"none",fill:"none"}):b;var l=a.path(g.getSubpath(0,1)).attr(f),m=g.getTotalLength(g);g.getPointAtLength(0);var n=(new Date).getTime(),q=setInterval(function(){var a=(new Date).getTime()-n,b=g.getSubpath(0,a/e*m);f.path=b;l.animate(f,25);a>=e&&(clearInterval(q),k!==p&&k(),g.remove())},25)};e.fn.lazylinepainter=function(c){if(l[c])return l[c].apply(this,
+Array.prototype.slice.call(arguments,1));if("object"===typeof c||!c)return l.init.apply(this,arguments)}})(jQuery,window);   
+
+// The actual code.
+$(function () {
+        /*
+         * Lazy Line Painter - Path Object
+         * Generated using 'SVG to Lazy Line Converter'
+         *
+         * http://lazylinepainter.info
+         * Copyright 2013, Cam O'Connell
+         *
+         */
+	
+var pathObj = {
+    "ll-animation": {
+        "strokepath": [
+            {
+                "path": "M182.545 9.545 C 180.345 9.900,175.109 10.717,170.909 11.362 C 52.442 29.543,-21.013 154.091,20.002 267.238 C 64.706 390.566,217.898 434.497,320.414 353.388 C 430.516 266.277,414.348 94.927,289.950 30.524 C 257.631 13.791,211.771 4.834,182.545 9.545 M230.545 31.261 C 335.680 49.876,399.322 157.208,364.882 257.818 C 329.553 361.022,207.278 406.181,113.569 350.634 C 9.874 289.168,-0.870 143.169,92.717 67.273 C 130.398 36.714,183.292 22.894,230.545 31.261 M232.545 59.935 C 223.445 68.860,216.000 76.460,216.000 76.823 C 216.000 77.187,218.888 80.359,222.417 83.872 L 228.834 90.260 245.872 73.549 L 262.909 56.838 256.379 50.237 C 252.787 46.607,249.678 43.652,249.470 43.672 C 249.261 43.691,241.645 51.010,232.545 59.935 M138.854 60.014 L 123.162 75.679 143.581 95.902 C 154.811 107.024,165.473 117.481,167.273 119.139 L 170.545 122.153 162.899 129.622 C 158.694 133.730,151.739 140.492,147.445 144.649 C 143.150 148.806,139.636 152.263,139.636 152.330 C 139.636 152.397,142.653 155.468,146.339 159.155 L 153.042 165.858 175.584 143.474 C 187.982 131.164,198.215 121.068,198.325 121.041 C 198.512 120.994,177.486 100.139,159.636 82.667 L 151.636 74.836 160.348 66.574 L 169.060 58.312 162.534 51.520 C 158.944 47.784,155.678 44.642,155.276 44.538 C 154.874 44.434,147.484 51.398,138.854 60.014 M62.070 134.865 L 46.182 150.457 69.837 174.134 L 93.493 197.810 70.746 220.515 C 58.236 233.002,48.000 243.239,48.000 243.265 C 48.000 243.290,55.105 250.416,63.790 259.100 L 79.580 274.890 86.601 268.172 C 90.462 264.477,93.624 261.291,93.627 261.091 C 93.629 260.891,89.619 256.876,84.715 252.168 L 75.799 243.609 99.393 220.532 L 122.987 197.455 106.403 181.034 C 97.281 172.002,86.348 161.277,82.106 157.201 L 74.394 149.790 82.923 141.622 C 87.614 137.130,91.493 133.164,91.544 132.809 C 91.648 132.081,79.284 119.273,78.477 119.273 C 78.191 119.273,70.808 126.289,62.070 134.865 M315.636 126.916 C 310.783 131.199,290.909 151.084,290.909 151.659 C 290.909 151.728,294.100 154.935,298.000 158.785 L 305.091 165.784 322.364 148.534 C 338.796 132.124,340.551 130.182,338.950 130.182 C 338.573 130.182,335.228 128.218,331.517 125.818 C 323.056 120.347,323.085 120.344,315.636 126.916 M145.937 236.570 L 138.783 243.273 150.664 254.969 C 157.199 261.402,164.112 268.111,166.028 269.878 L 169.510 273.091 146.253 296.293 L 122.997 319.496 126.215 322.839 C 127.985 324.677,134.756 331.970,141.262 339.045 C 147.768 346.120,153.484 351.847,153.963 351.772 C 155.043 351.604,168.848 338.117,168.567 337.505 C 168.455 337.261,164.393 333.305,159.540 328.713 L 150.717 320.364 174.337 297.091 L 197.957 273.818 176.056 252.000 C 164.010 240.000,153.915 230.111,153.623 230.024 C 153.330 229.938,149.872 232.883,145.937 236.570 M298.292 236.147 C 295.032 239.628,292.364 242.658,292.364 242.881 C 292.364 243.103,299.645 250.539,308.545 259.404 L 324.727 275.523 331.628 269.032 L 338.529 262.541 322.180 246.180 C 313.187 237.181,305.468 229.818,305.026 229.818 C 304.583 229.818,301.553 232.666,298.292 236.147 M222.737 312.182 C 219.098 315.482,216.094 318.348,216.061 318.552 C 216.027 318.755,223.118 326.015,231.818 334.684 L 247.636 350.446 254.545 343.981 L 261.455 337.515 245.825 321.848 C 237.228 313.232,230.005 306.182,229.773 306.182 C 229.542 306.182,226.375 308.882,222.737 312.182 ",
+                "duration": 1800
+            },
+            {
+                "path": "M227.818 155.175 C 227.518 155.651,224.914 158.131,222.031 160.686 C 219.149 163.241,216.959 165.604,217.165 165.938 C 217.507 166.492,216.448 166.846,215.091 166.632 C 214.791 166.584,214.545 166.672,214.545 166.826 C 214.545 167.363,230.912 184.003,231.439 184.002 C 231.964 184.000,242.368 194.186,244.256 196.551 C 245.077 197.580,219.465 224.727,217.674 224.727 C 217.553 224.727,216.882 225.268,216.182 225.929 C 214.981 227.063,215.319 227.537,222.142 234.293 C 229.598 241.676,230.101 242.035,230.979 240.615 C 231.331 240.045,231.169 239.973,230.476 240.391 C 229.612 240.911,229.606 240.820,230.433 239.799 C 230.972 239.135,231.663 238.663,231.971 238.751 C 232.278 238.838,241.723 229.668,252.961 218.373 L 273.394 197.837 251.847 176.216 C 230.691 154.988,228.917 153.434,227.818 155.175 ",
+                "duration": 1800
+            },
+            {
+                "path": "M214.628 227.818 C 214.807 227.918,218.053 230.945,221.841 234.545 L 228.727 241.091 222.197 234.364 C 218.605 230.664,215.360 227.636,214.985 227.636 C 214.610 227.636,214.449 227.718,214.628 227.818 ",
+                "duration": 600
+            }
+        ],
+        "dimensions": {
+            "width": 400,
+            "height": 400
+        }
+    }
+}; 
+ 
+
+
+        /*
+         Setup and Paint your lazyline!
+         */
+        
+            $('#ll-animation').lazylinepainter({
+                "svgData": pathObj,
+                    "strokeWidth": 2,
+                    "strokeColor": "#000",
+                    "onComplete": function () {
+                    $('#ll-animation svg path').css({
+                        fill: 'rgba(236,0,69,1.0)'
+                    });
+                }
+            }).lazylinepainter('paint');
+    });
+
+
+    </script>
+</body>
+

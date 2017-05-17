@@ -79,13 +79,23 @@ var mainState = {
 		if (!this.game.device.desktop){
 
 			var html_mobile = "Hola, esta es la web de <span style='color: #00C0C8;''>DIKTIA</span>, hacemos cars chulas para la web...";
-			html_mobile *= "<br><br>";
-		 	html_mobile *= "Mientras acabamos esta página, ¿Por qué no das una vuelta en el coche?<br><br>¿Puedes pillar al coche rojo?, usa las botones de abajo para moverte.";
-			html_mobile *= "<br><br>";
-			html_mobile *= "Para lo que nos necesites, nos puedes escribir a <a href='mailto:hola@diktia.com' style='color: #00C0C8; text-decoration:none;''>hola@diktia.com </a>";
+			html_mobile += "<br><br>";
+		 	html_mobile += "Mientras acabamos esta página, ¿Por qué no das una vuelta en el coche?<br><br>¿Puedes pillar al coche rojo?, usa las botones de abajo para moverte.";
+			html_mobile += "<br><br>";
+			html_mobile += "Para lo que nos necesites, nos puedes escribir a <a href='mailto:hola@diktia.com' style='color: #00C0C8; text-decoration:none;''>hola@diktia.com </a>";
+			html_mobile += "<br>";
+			html_mobile += "<br>";
+			html_mobile += "Cosas...";
+			html_mobile += "<br>";
+			html_mobile += "<a href='/particulas'>Partículas</a>";
+			html_mobile += "<br>";
+			html_mobile += "<a href='/kaleidoscopio'>Kaleidoscopio</a>";
+			html_mobile += "<br>";
+			html_mobile += "<a href='/pinta'>Pinta</a>";
+			html_mobile += "<br>";
 			$("#menu_slide_content").html(html_mobile);
 			$("#menu_slide_block").css("width","100%");
-
+			
 			//botones
             this.acc = this.add.sprite(this.world.width - 80, this.world.height - 80, 'boton_arr');
             this.acc.alpha = 0.5;

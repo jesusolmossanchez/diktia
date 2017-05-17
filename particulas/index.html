@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="utf-8">
+    <title>DIKTIA | Particulas</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="../favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="../favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="../favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../favicons/manifest.json">
+    <link rel="shortcut icon" href="../favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="../favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    
+    <meta name="description" content="DIKTIA - Hacemos cosas chulas para la web...">
+    <meta name="keywords" content="DIKTIA, web, diseño, juegos">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+
+    <meta property="og:url" content="http://www.diktia.com"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Cino_power">
+    <meta name="twitter:creator" content="@Cino_power">
+    <meta property="og:title" content="DIKTIA"/>
+    <meta name="twitter:title" content="DIKTIA">
+    <meta property="og:description" content="Hacemos cosas chulas para la web..."/>
+    <meta name="twitter:description" content="Hacemos cosas chulas para la web...">
+    <meta property="og:image" content="http://www.diktia.com/logo_share.png"/>
+    <meta name="twitter:image" content="http://www.diktia.com/logo_share.png"/>
+
+    <style type="text/css">
+	html, body{
+		margin: 0;
+	}
+	#contiene_canvas{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		margin: auto;
+	}
+	#bg_canvas{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		background-image: url(http://diktia.com/img/logo.png);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		z-index: -1;
+		-webkit-animation: fadein 20s ease-in infinite;
+		-moz-animation: fadein 20s ease-in infinite;
+		animation: fadein 20s ease-in infinite;
+	}
+
+	@keyframes fadein {
+		0% { opacity: 0; }
+		40% { opacity: 0; }
+		50% { opacity: 1; }
+		80% { opacity: 1; }
+		90% { opacity: 0; }
+	}
+
+    </style>
+</head>
+<body>
+    <div id="contiene_canvas">
+	<div id="bg_canvas"></div>
+    </div>
+    <script src="diktia_particulas.js"></script>
+    <script type="text/javascript">
+    	
+	var puntos = [{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":426,"y":255},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":446,"y":234},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":510,"y":295},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":447,"y":361},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":425,"y":340},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":468,"y":297},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":439,"y":267},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":453,"y":281},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":459,"y":248},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":478,"y":265},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":495,"y":280},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":497,"y":309},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":485,"y":321},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":472,"y":335},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":459,"y":350},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":435,"y":328},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":451,"y":314},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":433,"y":351},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":435,"y":240},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":334,"y":69},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":353,"y":87},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":287,"y":113},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":325,"y":113},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":395,"y":181},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":329,"y":246},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":310,"y":228},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":358,"y":184},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":217,"y":181},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":236,"y":199},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":172,"y":227},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":210,"y":225},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":282,"y":297},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":240,"y":297},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":174,"y":365},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":218,"y":409},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":239,"y":393},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":214,"y":366},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":310,"y":365},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":330,"y":346},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":356,"y":411},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":394,"y":410},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":287,"y":478},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":326,"y":481},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":331,"y":525},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":352,"y":507},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":426,"y":478},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":444,"y":461},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":471,"y":522},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":489,"y":506},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":542,"y":363},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":558,"y":348},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":587,"y":411},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":606,"y":393},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":540,"y":226},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":554,"y":243},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":607,"y":197},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":585,"y":180},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":426,"y":114},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":443,"y":131},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":492,"y":86},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":474,"y":66},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":314,"y":87},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":307,"y":133},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":335,"y":163},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":341,"y":125},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":371,"y":158},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":359,"y":217},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":334,"y":207},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":196,"y":201},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":194,"y":250},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":251,"y":264},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":218,"y":319},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":235,"y":344},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":194,"y":386},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":351,"y":366},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":373,"y":432},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":347,"y":458},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":321,"y":444},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":307,"y":502},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":464,"y":479},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":451,"y":506},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":555,"y":377},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":585,"y":373},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":558,"y":206},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":587,"y":217},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":458,"y":82},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":463,"y":112},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":299,"y":98},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":343,"y":75},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":354,"y":139},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":321,"y":150},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":229,"y":242},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":215,"y":268},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":260,"y":318},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":196,"y":340},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":369,"y":381},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":332,"y":386},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":569,"y":394},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":571,"y":231},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":440,"y":96},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":479,"y":99},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":434,"y":487},{"palabra":"","palabra_x_offset":0,"palabra_y_offset":-25,"peso":"5","color":"#000","x":340,"y":424}];
+
+	 particlesJS("contiene_canvas", {
+        	"particles": {
+            		"id": "contiene_canvas",
+            		"contador": 0,
+            		"array_puntos": puntos,
+            		"palabra_color": "#000000",
+            		"fuente": "20px 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue-Light', 'Helvetica Neue', Arial",
+        	}
+    	});
+
+
+    </script>
+</body>
+

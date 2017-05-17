@@ -100,6 +100,12 @@ html, body{
   	transition:  all 0.5s ease-in-out;
 }
 
+a{
+	color: #00C0C8 !important;
+	text-decoration: underline !important;
+
+}
+
 #menu_slide_block.act {
 	position: fixed;
 	right: 0%;
