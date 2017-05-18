@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="utf-8">
+    <title>DIKTIA | δικτυα</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/favicons/manifest.json">
+    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <meta name="description" content="DIKTIA | δικτυα - Hacemos cosas chulas para la web...">
+    <meta name="keywords" content="DIKTIA, δικτυα, web, diseño, juegos">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+	
+    <meta property="og:url" content="http://www.diktia.com"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Cino_power">
+    <meta name="twitter:creator" content="@Cino_power">
+    <meta property="og:title" content="DIKTIA"/>
+    <meta name="twitter:title" content="DIKTIA">
+    <meta property="og:description" content="Hacemos cosas chulas para la web..."/>
+    <meta name="twitter:description" content="Hacemos cosas chulas para la web...">
+    <meta property="og:image" content="http://www.diktia.com/img/logo_share.png"/>
+    <meta name="twitter:image" content="http://www.diktia.com/img/logo_share.png"/>
+        
+    <link rel="stylesheet" href="../css/styles.css?v=2">
+</head>
+<body>
+<div id="menu_button_block">
+	<div id="menu_button">
+		<span class="menu_button_line top_line">&nbsp;</span>
+		<span class="menu_button_line middle_line">&nbsp;</span>
+		<span class="menu_button_line bottom_line">&nbsp;</span>
+	</div>
+	<div id="menu_slide_block">
+		<div id="menu_slide_content">
+			Hola, esta es la web de <span style="color: #00C0C8;">DIKTIA</span>, hacemos cosicas chulas para la web...
+			<br><br>
+			 Mientras acabamos esta página, ¿Por qué no das una vuelta en el coche?<br><br>¿Puedes pillar al coche rojo?, usa las teclas para moverte, ¡Puedes hasta frenar si quieres! (usa la tecla 'C'). 
+			<br><br>
+			Para lo que nos necesites, también nos puedes escribir a <a href="mailto:hola@diktia.com" style="color: #00C0C8; text-decoration:none;">hola@diktia.com </a>
+			<br><br>
+			Cosas...
+			<br>
+			<a href="/particulas">Partículas</a>
+			<br>
+			<a href="/kaleidoscopio">Kaleidoscopio</a>
+			<br>
+			<a href="/pinta">Pinta</a>
+		</div>
+	</div>
+</div>	
+<div id="game"></div>
+<script src="../js/phaser.min.js"></script>
+<script src="../js/gyro.min.js"></script>
+<script src="../js/gamebola.js?v=4"></script>
+<script type="text/javascript">
+
+var logo_asci = ""+'\n'+"\
+                          ~~::::~:                          "+'\n'+"\
+                   :~~:::::::::::::::~~~                    "+'\n'+"\
+                ~~::::::~         :~:~::~~~                 "+'\n'+"\
+             ,:::~~~                    :~:::~              "+'\n'+"\
+           ::::::    :~:            ~:     :::~:            "+'\n'+"\
+          ~:::      :::~          :~::       :::::          "+'\n'+"\
+        ::::      ::::          ~:::           ::::         "+'\n'+"\
+       ~:~~        ~::~~         ~~              ::~:       "+'\n'+"\
+      :::            ::::                         ~:~:      "+'\n'+"\
+     :::              :~::~                        ~:::     "+'\n'+"\
+    :::                 ::::,                       ~~:~    "+'\n'+"\
+   :::    ::            :~:~                   ~~    :::    "+'\n'+"\
+  :::~  ,::~~          ::~:                  :::~~    ~:~   "+'\n'+"\
+  ::~  ~::~          :::~                   ::~:      ~::   "+'\n'+"\
+ ,:::  ,::~~         :~:         =:         ~~,        :::  "+'\n'+"\
+ ~:~     ::::~                  ====                   ~::  "+'\n'+"\
+ ~:~       :::~                  =====                 ~::  "+'\n'+"\
+ ~:~        ~:::~                  ====                 ::~ "+'\n'+"\
+ :::         ~::~~                  ====                ::~ "+'\n'+"\
+ :::        ~::~                  =====                 ::~ "+'\n'+"\
+ ~::      ~~::                   ====                  :::: "+'\n'+"\
+ ~::    :~:~~         :         ===,         ~         ::~  "+'\n'+"\
+ ::::  ::::         ,:::                   ~~::        ::~  "+'\n'+"\
+  :::   ~:::          :::~                   :::~     :::~  "+'\n'+"\
+  ::~,    :::          :::::                  ~~::    :::   "+'\n'+"\
+   ~:~     :             ::::                        ~::~   "+'\n'+"\
+    ::~                :~::~                         ~:~    "+'\n'+"\
+    :~:~              :~::                          :::     "+'\n'+"\
+     :::~           ~:~~                           ::~      "+'\n'+"\
+      ~~::        ,::~~         ~:::             ~:::       "+'\n'+"\
+        :::~       ~::~          ~:::           :::~        "+'\n'+"\
+         ~:::,      :~:::          ~~:        :::~          "+'\n'+"\
+           :::~~      :             :::     :::~~           "+'\n'+"\
+             ~::~:                       :::::~             "+'\n'+"\
+               :~~:~~:~              :~:::~~                "+'\n'+"\
+                  ~~~::::::::::::::::::~:                   "+'\n'+"\
+                       ~:::::::::::~              diktia.com"
+console.log(logo_asci);
+                                             
+
+
+	$( 'body' ).on( 'click', '#menu_button', function() {
+		if ($(this).hasClass('act')) {
+			
+		} else {
+			
+		}		
+		$('#menu_slide_block, #menu_button').toggleClass('act');
+	});
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66368910-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
+

@@ -42,10 +42,12 @@
     <meta name="twitter:image" content="http://www.diktia.com/logo_share.png"/>
 
     <style type="text/css">
+	html, body{
+	   margin: 0;
+	}
         #ll-post-content {
             width: 400px;
             height: 400px;
-            padding: 10px;
             position: relative;
             margin: 0 auto;
             text-align:center;
@@ -64,11 +66,18 @@
             opacity: 0.1;
         }
 
-	@media (max-width :767px) {
+	@media (max-width :400px) {
+		body{
+		    width: 100vw;
+		    overflow: hidden;
+		    margin-left: calc((100% - 400px)/2); 
+		    margin-top: calc((100vh - 480px)/2);
+		}		
+
 	        #ll-post-content {
 		}
 		#ll-animation{
-		    transform: scale(0.6);
+		    transform: scale(0.8);
 		    transform-origin: center;
 		}
 	}

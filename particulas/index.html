@@ -77,8 +77,31 @@
 	}
 
     </style>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+    <div id="menu_button_block">
+        <div id="menu_button">
+                <span class="menu_button_line top_line">&nbsp;</span>
+                <span class="menu_button_line middle_line">&nbsp;</span>
+                <span class="menu_button_line bottom_line">&nbsp;</span>
+        </div>
+        <div id="menu_slide_block">
+                <div id="menu_slide_content">
+                        Hola, esta es la web de <span style="color: #00C0C8;">DIKTIA</span>, hacemos cosicas chulas para la web...
+                        <br><br>
+                        Para lo que nos necesites, nos puedes escribir a <a href="mailto:hola@diktia.com" style="color: #00C0C8; text-decoration:none;">hola@diktia.com </a>
+                        <br><br>
+                        Cosas...
+                        <br>
+                        <a href="/">Coche</a>
+                        <br>
+                        <a href="/kaleidoscopio">Kaleidoscopio</a>
+                        <br>
+                        <a href="/pinta">Pinta</a>
+                </div>
+        </div>
+    </div>
     <div id="contiene_canvas">
 	<div id="bg_canvas"></div>
     </div>
@@ -99,5 +122,59 @@
 
 
     </script>
+<script type="text/javascript">
+
+var logo_asci = ""+'\n'+"\
+                          ~~::::~:                          "+'\n'+"\
+                   :~~:::::::::::::::~~~                    "+'\n'+"\
+                ~~::::::~         :~:~::~~~                 "+'\n'+"\
+             ,:::~~~                    :~:::~              "+'\n'+"\
+           ::::::    :~:            ~:     :::~:            "+'\n'+"\
+          ~:::      :::~          :~::       :::::          "+'\n'+"\
+        ::::      ::::          ~:::           ::::         "+'\n'+"\
+       ~:~~        ~::~~         ~~              ::~:       "+'\n'+"\
+      :::            ::::                         ~:~:      "+'\n'+"\
+     :::              :~::~                        ~:::     "+'\n'+"\
+    :::                 ::::,                       ~~:~    "+'\n'+"\
+   :::    ::            :~:~                   ~~    :::    "+'\n'+"\
+  :::~  ,::~~          ::~:                  :::~~    ~:~   "+'\n'+"\
+  ::~  ~::~          :::~                   ::~:      ~::   "+'\n'+"\
+ ,:::  ,::~~         :~:         =:         ~~,        :::  "+'\n'+"\
+ ~:~     ::::~                  ====                   ~::  "+'\n'+"\
+ ~:~       :::~                  =====                 ~::  "+'\n'+"\
+ ~:~        ~:::~                  ====                 ::~ "+'\n'+"\
+ :::         ~::~~                  ====                ::~ "+'\n'+"\
+ :::        ~::~                  =====                 ::~ "+'\n'+"\
+ ~::      ~~::                   ====                  :::: "+'\n'+"\
+ ~::    :~:~~         :         ===,         ~         ::~  "+'\n'+"\
+ ::::  ::::         ,:::                   ~~::        ::~  "+'\n'+"\
+  :::   ~:::          :::~                   :::~     :::~  "+'\n'+"\
+  ::~,    :::          :::::                  ~~::    :::   "+'\n'+"\
+   ~:~     :             ::::                        ~::~   "+'\n'+"\
+    ::~                :~::~                         ~:~    "+'\n'+"\
+    :~:~              :~::                          :::     "+'\n'+"\
+     :::~           ~:~~                           ::~      "+'\n'+"\
+      ~~::        ,::~~         ~:::             ~:::       "+'\n'+"\
+        :::~       ~::~          ~:::           :::~        "+'\n'+"\
+         ~:::,      :~:::          ~~:        :::~          "+'\n'+"\
+           :::~~      :             :::     :::~~           "+'\n'+"\
+             ~::~:                       :::::~             "+'\n'+"\
+               :~~:~~:~              :~:::~~                "+'\n'+"\
+                  ~~~::::::::::::::::::~:                   "+'\n'+"\
+                       ~:::::::::::~              diktia.com"
+console.log(logo_asci);
+
+
+
+        $( 'body' ).on( 'click', '#menu_button', function() {
+                if ($(this).hasClass('act')) {
+
+                } else {
+
+                }
+                $('#menu_slide_block, #menu_button').toggleClass('act');
+        });
+
+</script>
 </body>
 
