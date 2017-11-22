@@ -21,6 +21,7 @@ html, body{
 	top: 35px;
 	right: 35px;
 	position: fixed;
+	z-index: 999;
 }
 
 #menu_button {
